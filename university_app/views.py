@@ -18,6 +18,8 @@ class LandingPage(TemplateView):
         context["teachers"] = Teacher.objects.all()
         context["students"] = Student.objects.all()
 
+        return context
+
 
 class Teachers(ListView):
     model = Teacher
@@ -73,10 +75,10 @@ class CourseUpdateView(UpdateView):
     model = Course
     fields = ["title", "available_seats", "slug"]
     template_name_suffix = "_update_form"
+    success_url = "/courses"
 
 
 class AddNewCourse(CreateView):
     model = Course
     fields = ["title", "available_seats", "slug"]
     success_url = "/courses"
-

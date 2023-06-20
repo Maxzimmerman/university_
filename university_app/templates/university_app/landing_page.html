@@ -2,5 +2,16 @@
 
 {% block content %}
   <h1>Landing_page</h1>
+  {% for st in students %}
+    {{ st.first_name }}
+  {% endfor %}
+
+  {% for te in teachers %}
+    {{ te.first_name }}
+  {% endfor %}
+
+  {% for co in courses %}
+    {{ co.title }}
+  {% endfor %}
 {% endblock %}
 
