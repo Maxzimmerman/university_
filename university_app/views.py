@@ -1,10 +1,11 @@
 from django.shortcuts import render, reverse
 from django.views.generic import TemplateView, ListView, CreateView
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView
 from university_app.models import Teacher, Student, Course, Test
 from django.views import View
 from .forms import CourseForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 
@@ -66,3 +67,16 @@ class CourseDelete(View):
         form = course_form.save()
         form.post = course
         form.save()
+
+
+class CourseUpdateView(UpdateView):
+    model = Course
+    fields = ["title", "available_seats", "slug"]
+    template_name_suffix = "_update_form"
+
+
+class AddNewCourse(CreateView):
+    model = Course
+    fields = ["title", "available_seats", "slug"]
+    success_url = "/courses"
+

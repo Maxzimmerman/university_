@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card col-3 mt-12">
+    <div class="card-body">
+        <h5 class="card-title">{{ course.title }}</h5>
+
+        <div class="row">
+            <p class="col-6">Available Seats:</p>
+            <p class="card-text col-6">{{ course.available_seats }}</p>
+        </div>
+        <a class="btn btn-primary text-center">Go Back</a>
+    </div>
+  </div>
+  <form action="{% url "" %}">
+
+  </form>
+{% endblock %}
