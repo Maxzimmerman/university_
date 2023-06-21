@@ -8,6 +8,7 @@
     <link href="{% static 'university_app/css/detail-course.css' %}" rel="stylesheet" />
     <!-- This file stores project-specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% endblock %}
     <!-- Le javascript
     ================================================== -->
@@ -28,8 +29,13 @@
     {% endblock javascript %}
 
 {% block content %}
+  <i style="font-size: 20px" class="fa-solid fa-square-xmark close-button"></i>
+
+  <div id="modals-here">
+
+  </div>
+
   <div class="fake-body">
-    <form>
       <div id="detail-card" class="detail-card card col-4 mt-12">
         <div class="card-body">
             <h5 class="card-title">{{ course.title }}</h5>
@@ -39,14 +45,11 @@
             </div>
         </div>
       </div>
-      <button hx-get="/edit-course"
-              hx-target="#modals-here"
-              hx-trigger="click" class="form-button">edit</button>
-    </form>
-  </div>
-  <div id="modals-here">
+          <button hx-get="{% url 'edit-course' course.slug %}"
+                  hx-target="#modals-here"
+                  hx-trigger="click" class="form-button">edit</button>
+      </div>
 
-  </div>
   <div class="cover"></div>
 
   <script src="https://unpkg.com/htmx.org@1.9.2"></script>

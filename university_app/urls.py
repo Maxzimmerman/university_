@@ -8,7 +8,7 @@ urlpatterns = [
     path("teachesrs", Teachers.as_view(), name="teachers"),
     path("students", Students.as_view(), name="students"),
     path("courses", Courses.as_view(), name="courses"),
-    path("courses/<slug:slug>", view=CourseDetail.as_view(), name="course-detail-page"),
-    path("edit-course/", CourseUpdateView.as_view(), name="edit-course"),
+    path("courses/<slug:slug>", CourseDetail.as_view(), name="course-detail-page"),
+    path("edit-course/<slug:slug>", CourseUpdateView.as_view(), name="edit-course"),
     path("add-course/", AddNewCourse.as_view(), name="add-course")
 ]

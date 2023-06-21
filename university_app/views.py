@@ -78,6 +78,23 @@ class CourseUpdateView(UpdateView):
     success_url = "/courses"
 
 
+class eqivalientToAbov(View):
+    # returns form od adjust entry
+    def get(self, request, slug):
+        entry = Course.objects.get(slug=slug)
+        context = {
+            "course": entry,
+        }
+        return render(request, "university_app/course_update_form.html", context)
+    # get the post request of htmx form
+    def post(self, request):
+        request_form = request.POST()
+        new_entry = Course.objects.create(request_form)
+        new_entry.save()
+
+        return HttpResponseRedirect("/edit-course")
+
+
 class AddNewCourse(CreateView):
     model = Course
     fields = ["title", "available_seats", "slug"]

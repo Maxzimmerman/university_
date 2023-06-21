@@ -1,9 +1,12 @@
+{% load crispy_forms_tags %}
+
 <div class="card">
   <div class="card-header">Edit Course</div>
   <div class="card-body">
-    <form action="{% url 'edit-course' %}" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn btn-primary" type="submit" value="Update">
-    </form>
+    <div id="course-form">
+      <form action="post">
+        {{ form|crispy }}
+      </form>
+    </div>
   </div>
 </div>
