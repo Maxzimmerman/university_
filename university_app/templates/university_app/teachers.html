@@ -70,8 +70,8 @@
                     <td>{{ item.age }}</td>
                     <td>{{ item.course }}</td>
                     <td class="w-75 btn btn-group" role="group">
-                        <a class="btn btn-success mx-2">View</a>
-                        <a class="btn btn-danger mx-2">Delete</a>
+                        <a class="btn btn-success mx-2" href="{% url 'detail-teacher' item.slug %}">View</a>
+                        <a class="btn btn-danger mx-2" href="{% url 'delete-teacher' item.slug %}">Delete</a>
                     </td>
               </tr>
             {% endfor %}

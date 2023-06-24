@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <link href="{% static 'university_app/css/detail-teacher.css' %}" rel="stylesheet" />
+    <!-- This file stores project-specific CSS -->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% endblock %}
+    <!-- Le javascript
+    ================================================== -->
+    {# Placed at the top of the document so pages load faster with defer #}
+    {% block javascript %}
+      <!-- Bootstrap JS -->
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!-- Your stuff: Third-party javascript libraries go here -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+      <!-- place project specific Javascript in this file -->
+      <script defer src="{% static 'js/project.js' %}"></script>
+      <meta name="htmx-config" content="{&quot;useTemplateFragments&quot;:true}">
+
+      <!-- Your stuff: Third-party javascript libraries go here -->
+      <script src="{% static 'university_app/js/teacher-detail.js' %}"></script>
+
+    {% endblock javascript %}
+
+{% block title %}
+  Edit
+{% endblock %}
+
+
+{% block content %}
+  <i style="font-size: 30px; position: absolute; right: 42%; top: 36%; z-index: 9999999" class="fa-solid fa-square-xmark close-button"></i>
+
+  <div id="modals-here">
+
+  </div>
+
+  <div class="fake-body">
+      <div id="detail-card" class="detail-card card col-4 mt-12">
+        <div class="card-body">
+            <h5 class="card-title">{{ teacher.first_name }} {{ teacher.last_name }}</h5>
+            <div class="row">
+                <p class="col-6">Age</p>
+                <p class="card-text col-6">{{ teacher.age }}</p>
+            </div>
+            <div class="row">
+                <p class="col-6">Courses</p>
+                <p class="card-text col-6">{{ teacher.course }}</p>
+            </div>
+        </div>
+      </div>
+          <button hx-get="{% url 'update-teacher' teacher.slug %}"
+                  hx-target="#modals-here"
+                  hx-trigger="click"
+                  class="form-button"
+          >edit</button>
+      </div>
+
+  <div class="cover"></div>
+
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+{% endblock %}
+

@@ -2,7 +2,8 @@ from django.urls import path
 from university_app.views import LandingPage, \
     Teachers, Students, Courses, CourseDetail, \
     CourseDelete, CourseUpdateView, AddNewCourse, \
-    DeleteCourse, AddTeacher, CourseApi
+    DeleteCourse, AddTeacher, CourseApi, DetailTeacher, \
+    UpdateTeacher, DeleteTeacher
 
 urlpatterns = [
     # start page
@@ -11,6 +12,9 @@ urlpatterns = [
     # teacher urls
     path("teachesrs", Teachers.as_view(), name="teachers"),
     path("add-teacher", AddTeacher.as_view(), name="add-teacher"),
+    path("teacher-detail<slug:slug>", DetailTeacher.as_view(), name="detail-teacher"),
+    path("teacher-edit<slug:slug>", UpdateTeacher.as_view(), name="update-teacher"),
+    path("delete-teacher/<slug:slug>", DeleteTeacher.as_view(), name="delete-teacher"),
 
     # student urls
     path("students", Students.as_view(), name="students"),
