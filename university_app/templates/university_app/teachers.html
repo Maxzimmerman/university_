@@ -1,35 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <link href="{% static 'university_app/css/detail-course.css' %}" rel="stylesheet" />
+    <!-- This file stores project-specific CSS -->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <link href="{% static 'university_app/css/courses.css' %}" rel="stylesheet" />
+{% endblock %}
+
+    <!-- Le javascript
+    ================================================== -->
+    {# Placed at the top of the document so pages load faster with defer #}
+    {% block javascript %}
+      <!-- Bootstrap JS -->
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!-- Your stuff: Third-party javascript libraries go here -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+      <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+      <!-- place project specific Javascript in this file -->
+      <script defer src="{% static 'js/project.js' %}"></script>
+      <meta name="htmx-config" content="{&quot;useTemplateFragments&quot;:true}">
+
+      <!-- Your stuff: Third-party javascript libraries go here -->
+
+    {% endblock javascript %}
+
 
 {% block content %}
   <div class="container">
     <div class="row pt-4 pd-3">
         <div class="col-6">
-            <h2 class="text-primary">Students List</h2>
+            <h2 class="text-primary">Teacher List</h2>
         </div>
     </div>
+
+
+    <div class="row pt-4 pd-3">
+          <div class="col-6">
+              <a style="margin: 10px 0px" class="btn btn-primary"
+                 hx-get="/add-teacher"
+                 hx-trigger="click"
+                 hx-target="#add-form">Add Teacher</a>
+          </div>
+    </div>
+
+
+    <div id="add-form">
+
+    </div>
+
+
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Age: </th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Course</th>
             </tr>
         </thead>
         <tbody>
-            {% for item in teacher_list %}
+            {% for item in teachers %}
               <tr>
                     <td>{{ item.first_name }}</td>
                     <td>{{ item.last_name }}</td>
                     <td>{{ item.age }}</td>
+                    <td>{{ item.course }}</td>
                     <td class="w-75 btn btn-group" role="group">
-                        <!--todo add htmx to make partials fo adjust and view-->
-                        <a class="btn btn-primary mx-2">Adjust</a>
                         <a class="btn btn-success mx-2">View</a>
                         <a class="btn btn-danger mx-2">Delete</a>
                     </td>
-                </tr>
+              </tr>
             {% endfor %}
         </tbody>
     </table>
-  </div>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</div>
 {% endblock %}

@@ -6,6 +6,8 @@ from university_app.models import Teacher, Student, Course, Test
 from django.views import View
 from .forms import CourseForm
 from django.http import HttpResponseRedirect, HttpResponse
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
 
 # Create your views here.
 
@@ -21,10 +23,20 @@ class LandingPage(TemplateView):
         return context
 
 
-class Teachers(ListView):
-    model = Teacher
-    template_name = "university_app/teachers.html"
+class Teachers(View):
+    def get(self, request):
+        entries = Teacher.objects.all()
 
+        context = {
+            "teachers": entries
+        }
+
+        return render(request, "university_app/teachers.html", context)
+
+class AddTeacher(CreateView):
+    model = Teacher
+    fields = ["first_name", "last_name", "age", "course", "slug"]
+    success_url = "http://localhost:8000/teachesrs"
 
 class Students(ListView):
     model = Student
@@ -49,6 +61,16 @@ class CourseDetail(View):
         # rendering the view
         return render(request, "university_app/course-detail.html", context)
 
+class AddNewCourse(CreateView):
+    model = Course
+    fields = ["title", "available_seats", "slug"]
+    success_url = "/courses"
+
+class CourseUpdateView(UpdateView):
+    model = Course
+    fields = ["title", "available_seats", "slug"]
+    template_name_suffix = "_update_form"
+    success_url = "/courses"
 
 class CourseDelete(View):
 
@@ -61,37 +83,12 @@ class CourseDelete(View):
 
         return render(reqeust, "university_app/course-delete.html", context)
 
-
-class CourseUpdateView(UpdateView):
-    model = Course
-    fields = ["title", "available_seats", "slug"]
-    template_name_suffix = "_update_form"
-    success_url = "/courses"
-
-
-# class eqivalientToAbov(View):
-#     # returns form od adjust entry
-#     def get(self, request, slug):
-#         entry = Course.objects.get(slug=slug)
-#         context = {
-#             "course": entry,
-#         }
-#         return render(request, "university_app/course_update_form.html", context)
-#     # get the post request of htmx form
-#     def post(self, request):
-#         request_form = request.POST()
-#         new_entry = Course.objects.create(request_form)
-#         new_entry.save()
-#
-#         return HttpResponseRedirect("/edit-course")
-
-
-class AddNewCourse(CreateView):
-    model = Course
-    fields = ["title", "available_seats", "slug"]
-    success_url = "/courses"
-
-
 class DeleteCourse(DeleteView):
     model = Course
     success_url = "/courses"
+
+
+class CourseApi(View):
+    def get(self, request):
+        courses = Course.objects.all()
+        return HttpResponse(courses)
