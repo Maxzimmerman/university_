@@ -1,4 +1,7 @@
 /* These styles are generated from project.scss. */
+* {
+  font-family: 'Arial';
+}
 
 .alert-debug {
   color: black;
@@ -10,4 +13,34 @@
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
+}
+
+body {
+  background-image: url('../images/thumb-1920-684535.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+}
+
+.nav-links-container {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  text-align: center;
+  margin: auto;
+  color: white;
+}
+
+.nav-logo-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-logo {
+  width: 300px;
 }
