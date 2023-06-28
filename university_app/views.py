@@ -69,6 +69,36 @@ class Students(ListView):
     template_name = "university_app/students.html"
 
 
+class DetailStudent(View):
+    def get(self, request, slug):
+        student = Student.objects.get(slug=slug)
+
+        context = {
+            "students": student,
+        }
+
+        return render(request, "university_app/student-detail.html", context)
+
+class AddStudent(CreateView):
+    model = Student
+    fields = ["first_name", "last_name", "age", "course", "slug"]
+    success_url = "http://localhost:8000/students"
+
+class RemoveStudent(View):
+    def get(self, request, slug):
+        student = Student.objects.get(slug=slug)
+
+        context = {
+            "student": student
+        }
+
+        return render(request, "", context)
+
+
+class DeleteStudent(DeleteView):
+    model = Student
+    success_url = "http://localhost:8000/students"
+
 class Courses(ListView):
     model = Course
     template_name = "university_app/courses.html"

@@ -8,9 +8,8 @@
     <link href="{% static 'university_app/css/detail-course.css' %}" rel="stylesheet" />
     <!-- This file stores project-specific CSS -->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <link href="{% static 'university_app/css/courses.css' %}" rel="stylesheet" />
-{% endblock %}
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% endblock %}
     <!-- Le javascript
     ================================================== -->
     {# Placed at the top of the document so pages load faster with defer #}
@@ -29,52 +28,35 @@
 
     {% endblock javascript %}
 
+{% block title %}
+  Delete
+{% endblock %}
 
 {% block content %}
-  <div class="container" style="background-color: white; color: black; padding: 20px; border-radius: 10px">
-    <div class="row pt-4 pd-3">
-        <div class="col-6">
-            <h2 class="text-primary">Course List</h2>
+  <i style="font-size: 30px; position: absolute; right: 42%; top: 36%; z-index: 9999999" class="fa-solid fa-square-xmark close-button"></i>
+
+  <div id="modals-here">
+
+  </div>
+
+  <div class="fake-body">
+      <div id="detail-card" class="detail-card card col-4 mt-12">
+        <div class="card-body">
+            <h5 class="card-title">{{ course.title }}</h5>
+            <div class="row">
+                <p class="col-6">Available Seats:</p>
+                <p class="card-text col-6">{{ teacher.available_seats }}</p>
+            </div>
         </div>
-    </div>
+      </div>
+          <form method="post" action="{% url 'delete-teacher' teacher.slug %}">
+            {% csrf_token %}
+            <button class="form-button" type="submit">delete</button>
+          </form>
+      </div>
 
+  <div class="cover"></div>
 
-    <div class="row pt-4 pd-3">
-          <div class="col-6">
-              <a style="margin: 10px 0px" class="btn btn-primary"
-                 hx-get="/add-course"
-                 hx-trigger="click"
-                 hx-target="#add-form">Add Course</a>
-          </div>
-    </div>
-
-
-    <div id="add-form">
-
-    </div>
-
-
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Available Seats</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in course_list %}
-              <tr>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.available_seats }}</td>
-                    <td class="w-75 btn btn-group" role="group">
-                        <!--todo add htmx to make partials fo adjust and view-->
-                        <a class="btn btn-success mx-2" href="{% url "course-detail-page" item.slug %}">View</a>
-                        <a class="btn btn-danger mx-2" href="{% url "course-detail-delete" item.slug %}">Delete</a>
-                    </td>
-              </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
-</div>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 {% endblock %}
+

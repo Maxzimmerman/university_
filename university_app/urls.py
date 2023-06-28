@@ -3,7 +3,8 @@ from university_app.views import LandingPage, \
     Teachers, Students, Courses, CourseDetail, \
     CourseDelete, CourseUpdateView, AddNewCourse, \
     DeleteCourse, AddTeacher, CourseApi, DetailTeacher, \
-    UpdateTeacher, DeleteTeacher
+    UpdateTeacher, DeleteTeacher, DetailStudent, AddStudent, \
+    RemoveStudent, DeleteStudent
 
 urlpatterns = [
     # start page
@@ -18,6 +19,10 @@ urlpatterns = [
 
     # student urls
     path("students", Students.as_view(), name="students"),
+    path("students/student-detail/<slug:slug>", DetailStudent.as_view(), name="student-detail"),
+    path("student-add", AddStudent.as_view(), name="add-new-student"),
+    path("students/student-delete/<slug:slug>", RemoveStudent.as_view(), name="remove-student"),
+    path("students/delete-student/<slug:slug>", DeleteStudent.as_view(), name='delete-student'),
 
     # course urls
     path("courses", Courses.as_view(), name="courses"),
